@@ -1,22 +1,58 @@
 <!DOCTYPE html>
 <html>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+    function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+</script>
+
 <head>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
     <!-- Barra Superior -->
     <header class="header">
+        <button class="openbtn" onclick="openNav()">&#9776;</button>
         <div class="left-icon">
-          <!-- Insert your left icon here -->
+          <!-- Icono izquierdo -->
+          <img src="src/icon_movie.png" height="45" alt="Menú Principal">
         </div>
         <div class="right-icon">
-          <!-- Insert your right icon here -->
+          <!-- Icono derecho -->
+          <img src="src/icon_user.png" height="45" alt="Perfil">
         </div>
     </header>
-
+    
     <br>
 
-    <div class="main">
+    <!-- Barra lateral -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <!-- div class="container" -->
+            <div class="menuBox">
+                <a href="index.html">Inicio</a>
+            </div>
+            <div class="menuBox">
+                <a href="#">Géneros</a>
+            </div>
+            <div class="menuBox">
+                <a href="#">Búsqueda</a>
+            </div>
+            <div class="menuBox">
+                <a href="#">Perfil</a>
+            </div>
+        <!-- /div -->
+    </div>
+    
+    <br>
+    
+    <div id="main" class="main">
 
         <!-- Contenedor de películas -->
         <div class="container">
@@ -113,4 +149,5 @@
     </div>
 
 </body>
+
 </html>

@@ -12,35 +12,6 @@
     }
 </script>
 
-<script>
-    /*function cardClick(index) {
-        const carousel = document.querySelector('.carousel');
-        const cards = Array.from(document.querySelectorAll('.card'));
-
-        carousel.style.transform = `translateX(-${index * (card.offsetWidth + 10)}px)`;
-
-        cards.forEach((c) => {
-        c.classList.remove('active');
-        });
-
-        cards[index].classList.add('active');
-    }*/
-    const carousel = document.querySelector('.carousel');
-    const cards = Array.from(document.querySelectorAll('.card'));
-
-    cards.forEach((card, index) => {
-    card.addEventListener('click', () => {
-        carousel.style.transform = `translateX(-${index * (card.offsetWidth + 10)}px)`;
-
-        cards.forEach((c) => {
-        c.classList.remove('active');
-        });
-
-        card.classList.add('active');
-    });
-    });
-</script>
-
 <head>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
@@ -82,26 +53,6 @@
     <br>
     
     <div id="main" class="main">
-        <!-- Carrusel de películas -->
-        <div class="carousel-container">
-            <div class="carousel">
-              <div class="cardCarousel active">
-                <img src="src/image1.jpg" alt="Image 1">
-                <div class="text">Movie 1</div>
-              </div>
-              <div class="cardCarousel">
-                <img src="src/image2.jpg" alt="Image 2">
-                <div class="text">Movie 2</div>
-              </div>
-              <div class="cardCarousel">
-                <img src="src/image3.jpg" alt="Image 3">
-                <div class="text">Movie 3</div>
-              </div>
-              <!-- Add more cards here -->
-            </div>
-        </div>
-
-
 
         <!-- Contenedor de películas -->
         <div class="container">

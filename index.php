@@ -14,9 +14,11 @@
           <!-- Icono izquierdo -->
           <img src="src/icon_movie.png" height="45" alt="Menú Principal">
         </div>
+        <p id="bienvenida">Bienvenid@ Desconocid@</p>
         <div class="right-icon">
           <!-- Icono derecho -->
-          <img src="src/icon_user.png" height="45" alt="Perfil">
+          <img src="src/icon_user.png" height="45"  onclick="openPopup()" alt="Perfil" style="cursor: pointer;">
+
         </div>
     </header>
     
@@ -98,16 +100,56 @@
         <div class="popup-content">
           <span class="close" onclick="closePopup()">&#10006;</span>
           <h3>Inicio de Sesión</h3>
-          <form action="/login" method="post">
-            <label for="username">Usuario</label><br>
-            <input type="text" id="username" class="input" required><br><br>
+          <form action="/index.php" method="POST" >
+            <label for="email">Usuario</label><br>
+            <input type="text" id="email" class="input" name="email" required><br><br>
             <label for="password">Contraseña</label><br>
-            <input type="password" id="password" class="input" required><br><br>
+            <input type="password" id="password" class="input" name="password" required><br><br>
           <button type="submit" class="button">Ingresar</button>
         </form>
 
         </div>
       </div>
+
+      <?php
+        if($_POST){
+            $host = "localhost";
+            $username = "root";
+            $password = "negocios123";
+            $database = "Eq8Peliculas";
+
+            $conn = mysqli_connect($host, $username, $password, $database);
+
+            if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
+
+            $sql = "SELECT * FROM users WHERE email = '".$_POST['email']."' AND password = '".$_POST['password']."'";
+            $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $nombre = $row['nombre']." ".$row['apellido'];
+                    $id = $row['id'];
+        ?>
+                    <script type="text/javascript">
+                        var nombre = "<?php echo $nombre; ?>";
+                        document.getElementById("bienvenida").innerHTML = "Bienvenid@ " + nombre ;
+                        window.alert("Bienvenid@ "+nombre);
+                    </script>
+
+        <?php
+  
+                }
+            }else{
+        ?>
+            <script>window.alert("Usuario o Contraseña Incorrecta");</script>
+        <?php
+        }
+                              
+        }
+
+
+      ?>
 
 </body>
 

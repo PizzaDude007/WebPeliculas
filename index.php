@@ -72,6 +72,7 @@
 
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
+                    $movieID = $row['id'];
                     $movieName = $row['nombre'];
                     $description = $row['sinopsis'];
                     $imageFilename = $row['imagen_nombre'];
@@ -81,8 +82,10 @@
                     <!-- Película -->
                     <div class="box">
                         <div class="card">
-                            <img src="src/<?php echo $imageFilename; ?>" alt="<?php echo $movieName; ?>">
-                            <div class="text"><?php echo $movieName; ?></div>
+                            <a href="sinopsis.php?id=<?php echo $movieID; ?>">
+                                <img src="src/<?php echo $imageFilename; ?>" alt="<?php echo $movieName; ?>">
+                                <div class="text"><?php echo $movieName; ?></div>
+                            </a>
                         </div>
                     </div>
                     <?php

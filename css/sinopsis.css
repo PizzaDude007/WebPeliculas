@@ -1,0 +1,87 @@
+/* Estilo pagina opsis */
+.grid-container {
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 10px;
+    height: 100vh;
+  }
+  
+  .tarjeta {
+    padding: 20px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .tarjeta-image {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+  }
+  
+  .tarjeta-image img {
+    /*max-width: 1080px;*/
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .tarjeta-image h2 {
+    margin-top: 10px;
+  }
+  
+  .tarjeta-dropdown {
+    text-align: center;
+    margin-top: 60%;
+    margin-bottom: 30%;
+  }
+  
+  .tarjeta-dropdown label {
+    display: block;
+    margin-top: 10%;
+    margin-bottom: 10%;
+  }
+  
+  .tarjeta-dropdown select {
+    width: 200px;
+    margin-bottom: 10px;
+  }
+  
+  .tarjeta-synopsis {
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 1;
+    /*resize: vertical;*/
+    overflow: auto;
+  }
+
+  @media (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: 1fr;
+      height: 100%;
+    }
+    .trajeta-image img {
+      width: 20%;
+      height: 30%;
+    }
+    .tarjeta-image {
+      grid-column: 1 / span 1;
+      grid-row: 1 / span 1;
+    }
+    .tarjeta-synopsis {
+      grid-column: 1 / span 1;
+      grid-row: 2 / span 1;
+    }
+    .tarjeta-dropdown {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .tarjeta-dropdown select {
+      width: 100%;
+      margin-bottom: 0;
+    }
+    .tarjeta-dropdown label {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  }

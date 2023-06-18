@@ -44,7 +44,7 @@ if (isset($_COOKIE['sessionID'])) {
     }
 }
 
-if($_POST){
+if($_POST['email']){
     $host = "localhost";
     $username = "root";
     $password = "negocios123";
@@ -86,6 +86,51 @@ if($_POST){
 <?php
         }
     }                   
+}
+
+if($_POST['nombre']){
+    $host = "localhost";
+    $username = "root";
+    $password = "negocios123";
+    $database = "Eq8Peliculas";
+    $sessionID = generateSessionID();
+    $expiration = time() + (86400 * 30); // 30 días
+
+    $conn = mysqli_connect($host, $username, $password, $database);
+
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    echo $_POST['apellidos'];
+    $sql = "INSERT INTO users VALUES (NULL, '".$_POST['correo']."', '".$_POST['contra']."', '".$_POST['nombre']."', '".$_POST['apellidos']."',NULL)"; 
+    $result = mysqli_query($conn, $sql);
+    $sql = "SELECT * FROM users WHERE email = '".$_POST['correo']."' AND password = '".$_POST['contra']."'";
+    $result = mysqli_query($conn, $sql);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $nombre = $row['nombre']." ".$row['apellido'];
+        $id = $row['id'];
+        $sql = "INSERT INTO sessions (session_ID, user_ID, expiration) VALUES ('".$sessionID."', '".$id."', '".$expiration."')";
+        $result = mysqli_query($conn, $sql);
+        $sql = "UPDATE users SET session_ID = '".$sessionID."' WHERE id = '".$id."'";
+        $result = mysqli_query($conn, $sql);
+        setcookie("sessionID", $sessionID, $expiration, "/");
+?>
+            <script type="text/javascript">
+                var nombre = "<?php echo $nombre; ?>";
+                document.getElementById("bienvenida").innerHTML = "Bienvenid@ " + nombre ;
+                window.alert("Bienvenid@ "+nombre);
+            </script>
+
+<?php
+
+        }
+
+
+
+
+    header('Location: index.php');
+    exit();
+                      
 }
 
 

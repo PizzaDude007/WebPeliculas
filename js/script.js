@@ -30,11 +30,17 @@ cards.forEach((card, index) => {
     });
 });
 
-function openPopup() {
-    document.getElementById("myPopup").style.display = "block";
+function openPopup(nombre) {
+    document.getElementById(nombre).style.display = "block";
 }
 
-function closePopup() {
-    document.getElementById("myPopup").style.display = "none";
+function closePopup(nombre) {
+    document.getElementById(nombre).style.display = "none";
+}
+
+function newUser() {
+    //document.getElementById("myPopup").style.display = "none";
+    closePopup("inicio");
+    openPopup("nuevo");
 }
 

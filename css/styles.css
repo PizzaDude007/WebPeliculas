@@ -228,3 +228,7 @@
    background: #318aac;
   color: #fff !important;
 }
+
+#newuser:hover {
+  color: #ff0000;
+}

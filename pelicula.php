@@ -49,55 +49,11 @@
     <br>
     
     <div id="main" class="main">
-
-        <!-- Contenedor de películas -->
-        <div class="container">
-
-            <?php
-            // Your database connection code
-            $host = "localhost";
-            $username = "root";
-            $password = "negocios123";
-            $database = "Eq8Peliculas";
-
-            $conn = mysqli_connect($host, $username, $password, $database);
-
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
-
-            // Query the "peliculas" table to retrieve the movie data
-            $sql = "SELECT * FROM peliculas";
-            $result = mysqli_query($conn, $sql);
-
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $movieID = $row['id'];
-                    $movieName = $row['nombre'];
-                    $description = $row['sinopsis'];
-                    $imageFilename = $row['imagen_nombre'];
-
-                    // Generate HTML code for each movie card dynamically
-                    ?>
-                    <!-- Película -->
-                    <div class="box">
-                        <div class="card">
-                            <a href="sinopsis.php?id=<?php echo $movieID; ?>">
-                                <img src="src/<?php echo $imageFilename; ?>" alt="<?php echo $movieName; ?>">
-                                <div class="text"><?php echo $movieName; ?></div>
-                            </a>
-                        </div>
-                    </div>
-                    <?php
-                }
-            } else {
-                echo "No movies found.";
-            }
-
-            mysqli_close($conn);
-            ?>
+        <?php $movieDir = $_GET['dir']; ?>
+        <!-- Mostrar video en tarjeta -->
+        <div class="iframe-container">
+            <iframe width="100%" height="100%" src="<?php echo $movieDir; ?>" frameborder="0" allowfullscreen>Video</iframe>
         </div>
-
 
     </div>
 

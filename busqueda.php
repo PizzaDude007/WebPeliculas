@@ -5,27 +5,10 @@
 
 <head>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" type="text/css" href="css/busqueda.css">
 </head>
 <body>
-    <!-- Barra Superior -->
-    <header class="header">
-        <button class="openbtn" onclick="openNav()">&#9776;</button>
-        <div class="left-icon">
-          <!-- Icono izquierdo -->
-          <a href="index.php">
-            <img src="src/icon_movie.png" height="45" alt="Menú Principal">
-          </a>
-        </div>
-        <p id="bienvenida">Bienvenid@ Desconocid@</p>
-        <?php include 'popup.php';?>
-        <div class="right-icon">
-          <!-- Icono derecho -->
-          <img src="src/icon_user.png" height="45"  onclick="openPopup()" alt="Perfil" style="cursor: pointer;">
-
-        </div>
-    </header>
-    
-    <br>
+    <?php include 'header.php';?>
 
     <!-- Barra lateral -->
     <div id="mySidebar" class="sidebar">
@@ -33,9 +16,6 @@
         <!-- div class="container" -->
             <div class="menuBox">
                 <a href="index.php">Inicio</a>
-            </div>
-            <div class="menuBox">
-                <a href="#">Géneros</a>
             </div>
             <div class="menuBox">
                 <a href="#">Búsqueda</a>
@@ -50,12 +30,16 @@
     
     <div id="main" class="main">
         <!-- Barra de búsqueda -->
-        <form action="/busqueda.php" method="POST">
-                <div class="search-bar">
-                <input type="text" id="search" class="input" name="search" placeholder="Buscar...">
-                <input type="submit" value="Buscar" class="button">
-            </div>
-        </form>
+        <div class="box" style="text-align: center">
+            <form action="/busqueda.php" method="POST">
+                    <div class="search-bar">
+                    <input type="text" id="search" class="input" name="search" placeholder="Buscar...">
+                    <button type="submit" value="Buscar" class="busqueda">
+                    <img src="src/search.png" width="10px" alt="" >
+                    </button>
+                </div>
+            </form>
+        </div>
 
         <br>
         <!-- Contenedor de películas -->
@@ -82,6 +66,7 @@
 
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
+                        $movieID = $row['id'];
                         $movieName = $row['nombre'];
                         $description = $row['sinopsis'];
                         $imageFilename = $row['imagen_nombre'];
@@ -91,8 +76,10 @@
                         <!-- Película -->
                         <div class="box">
                             <div class="card">
-                                <img src="src/<?php echo $imageFilename; ?>" alt="<?php echo $movieName; ?>">
+                                <a href="sinopsis.php?id=<?php echo $movieID; ?>">
+                                <img src="src/<?php echo $imageFilename; ?>" alt="<?php echo $movieName; ?>"><br><br>
                                 <div class="text"><?php echo $movieName; ?></div>
+                                </a>
                             </div>
                         </div>
                         <?php
@@ -109,21 +96,7 @@
 
     </div>
 
-    <!-- Contenodr del popup-->
-    <div class="popup" id="myPopup">
-        <div class="popup-content">
-          <span class="close" onclick="closePopup()">&#10006;</span>
-          <h3>Inicio de Sesión</h3>
-          <form action="#" method="POST" >
-            <label for="email">Usuario</label><br>
-            <input type="text" id="email" class="input" name="email" required><br><br>
-            <label for="password">Contraseña</label><br>
-            <input type="password" id="password" class="input" name="password" required><br><br>
-          <button type="submit" class="button">Ingresar</button>
-        </form>
-
-        </div>
-      </div>
+    <?php include 'inicio_sesion.php';?>
 
 </body>
 

@@ -2,53 +2,15 @@
 <html>
 
 <script src="js/script.js"></script>
+<script>
 
 
-
+</script>
 <head>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
-    <!-- Barra Superior -->
-    <header class="header">
-        <button class="openbtn" onclick="openNav()">&#9776;</button>
-        <div class="left-icon">
-          <!-- Icono izquierdo -->
-          <a href="index.php">
-            <img src="src/icon_movie.png" height="45" alt="Menú Principal">
-          </a>
-        </div>
-        <!--p id="bienvenida">Bienvenid@ Desconocid@</p-->
-        <?php include 'popup.php';?>
-        <div class="right-icon">
-          <!-- Icono derecho -->
-          <img src="src/icon_user.png" height="45"  onclick="openPopup()" alt="Perfil" style="cursor: pointer;">
-
-        </div>
-    </header>
-    
-    <br>
-
-    <!-- Barra lateral -->
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <!-- div class="container" -->
-            <div class="menuBox">
-                <a href="index.php">Inicio</a>
-            </div>
-            <div class="menuBox">
-                <a href="#">Géneros</a>
-            </div>
-            <div class="menuBox">
-                <a href="busqueda.php">Búsqueda</a>
-            </div>
-            <div class="menuBox">
-                <a href="#">Perfil</a>
-            </div>
-        <!-- /div -->
-    </div>
-    
-    <br>
+    <?php include 'header.php';?>
     
     <div id="main" class="main">
         <br>
@@ -78,27 +40,44 @@
                             <p>Nombre: <?php echo $nombre; ?></p>
                             <p>Correo: <?php echo $correo; ?></p>
                             <p>Contraseña: <?php echo $contrasena; ?></p>
+                            <p style="text-align: center">
+                            <form action="/usuario.php" method="POST">
+                                <div class="search-bar">
+                                <button class="button" id="cerrarSesion" name="cerrarSesion" type="submit">Cerrar sesión</button>
+                                </div>
+                            </form>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <?php 
+         if($_POST){
+            $host = "localhost";
+            $username = "root";
+            $password = "negocios123";
+            $database = "Eq8Peliculas";
+            $session_id = $_COOKIE['sessionID'];
+                                        
+            $conn = mysqli_connect($host, $username, $password, $database);
+                                        
+            if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
+    
+            $sql = "DELETE FROM sessions WHERE session_id = '$session_id'";
+            $result = mysqli_query($conn, $sql);
+    
+            // Eliminar cookie
+            setcookie('sessionID', '', time() - 3600, '/');
 
-        <!-- Contenedor del popup-->
-        <div class="popup" id="myPopup">
-            <div class="popup-content">
-            <span class="close" onclick="closePopup()">&#10006;</span>
-            <h3>Inicio de Sesión</h3>
-            <form action="#" method="POST" >
-                <label for="email">Usuario</label><br>
-                <input type="text" id="email" class="input" name="email" required><br><br>
-                <label for="password">Contraseña</label><br>
-                <input type="password" id="password" class="input" name="password" required><br><br>
-            <button type="submit" class="button">Ingresar</button>
-            </form>
+            header("Location: index.php");
+            exit();
+        }
+        ?>
 
-            </div>
-        </div>
+       <?php include 'inicio_sesion.php';?>
 
 
 </body>

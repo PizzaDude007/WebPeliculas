@@ -39,8 +39,8 @@ function closePopup(nombre) {
 }
 
 function newUser() {
-    //document.getElementById("myPopup").style.display = "none";
     closePopup("inicio");
     openPopup("nuevo");
 }
+
 

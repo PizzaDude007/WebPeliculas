@@ -33,10 +33,20 @@ if (isset($_COOKIE['sessionID'])) {
             $correo = $row['email'];
             $contrasena = $row['password'];
             $id = $row['id'];
+            $genero = $row['genero'];
 ?>
             <script type="text/javascript">
                 var nombre = "<?php echo $nombre; ?>";
-                document.getElementById("bienvenida").innerHTML = "Bienvenid@ " + nombre ;
+                var genero = "<?php echo $genero; ?>";
+                if(genero == 'F'){
+                    document.getElementById("bienvenida").innerHTML = "Bienvenida " + nombre ;
+                }
+                if(genero == 'M'){
+                    document.getElementById("bienvenida").innerHTML = "Bienvenido " + nombre ;
+                }
+                if(genero == 'O'){
+                    document.getElementById("bienvenida").innerHTML = "Bienvenid@ " + nombre ;
+                }
             </script>
         
 <?php
@@ -64,6 +74,7 @@ if($_POST['email']){
         while ($row = mysqli_fetch_assoc($result)) {
             $nombre = $row['nombre']." ".$row['apellido'];
             $id = $row['id'];
+            $genero = $row['genero'];
             $sql = "INSERT INTO sessions (session_ID, user_ID, expiration) VALUES ('".$sessionID."', '".$id."', '".$expiration."')";
             $result = mysqli_query($conn, $sql);
             $sql = "UPDATE users SET session_ID = '".$sessionID."' WHERE id = '".$id."'";
@@ -72,12 +83,24 @@ if($_POST['email']){
 ?>
             <script type="text/javascript">
                 var nombre = "<?php echo $nombre; ?>";
-                document.getElementById("bienvenida").innerHTML = "Bienvenid@ " + nombre ;
-                window.alert("Bienvenid@ "+nombre);
+                var genero = "<?php echo $genero; ?>";
+                if(genero == 'F'){
+                    document.getElementById("bienvenida").innerHTML = "Bienvenida " + nombre ;
+                    window.alert("Bienvenida "+nombre);
+                }
+                if(genero == 'M'){
+                    document.getElementById("bienvenida").innerHTML = "Bienvenido " + nombre ;
+                    window.alert("Bienvenido "+nombre);
+                }
+                if(genero == 'O'){
+                    document.getElementById("bienvenida").innerHTML = "Bienvenid@ " + nombre ;
+                    window.alert("Bienvenid@ "+nombre);
+                }
             </script>
 
 <?php
-
+        header('Location: usuario.php');
+        exit();
         }
     }else{
         if (!isset($_COOKIE['sessionID'])) {
@@ -102,13 +125,14 @@ if($_POST['nombre']){
         die("Connection failed: " . mysqli_connect_error());
     }
     echo $_POST['apellidos'];
-    $sql = "INSERT INTO users VALUES (NULL, '".$_POST['correo']."', '".$_POST['contra']."', '".$_POST['nombre']."', '".$_POST['apellidos']."',NULL)"; 
+    $sql = "INSERT INTO users VALUES (NULL, '".$_POST['correo']."', '".$_POST['contra']."', '".$_POST['nombre']."', '".$_POST['apellidos']."','".$_POST['genero']."',NULL)"; 
     $result = mysqli_query($conn, $sql);
     $sql = "SELECT * FROM users WHERE email = '".$_POST['correo']."' AND password = '".$_POST['contra']."'";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $nombre = $row['nombre']." ".$row['apellido'];
         $id = $row['id'];
+        $genero = $row['genero'];
         $sql = "INSERT INTO sessions (session_ID, user_ID, expiration) VALUES ('".$sessionID."', '".$id."', '".$expiration."')";
         $result = mysqli_query($conn, $sql);
         $sql = "UPDATE users SET session_ID = '".$sessionID."' WHERE id = '".$id."'";
@@ -117,20 +141,27 @@ if($_POST['nombre']){
 ?>
             <script type="text/javascript">
                 var nombre = "<?php echo $nombre; ?>";
-                document.getElementById("bienvenida").innerHTML = "Bienvenid@ " + nombre ;
-                window.alert("Bienvenid@ "+nombre);
+                var genero = "<?php echo $genero; ?>";
+                if(genero == 'F'){
+                    document.getElementById("bienvenida").innerHTML = "Bienvenida " + nombre ;
+                    window.alert("Bienvenida "+nombre);
+                }
+                if(genero == 'M'){
+                    document.getElementById("bienvenida").innerHTML = "Bienvenido " + nombre ;
+                    window.alert("Bienvenido "+nombre);
+                }
+                if(genero == 'O'){
+                    document.getElementById("bienvenida").innerHTML = "Bienvenid@ " + nombre ;
+                    window.alert("Bienvenid@ "+nombre);
+                }
             </script>
 
 <?php
+header('Location: usuario.php');
+exit();
 
-        }
-
-
-
-
-    header('Location: index.php');
-    exit();
-                      
+}
+                     
 }
 
 
